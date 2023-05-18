@@ -1,68 +1,86 @@
-<head>
-  <title>FastLab</title>
-</head>
-<nav class="navbar">
-  <!-- <a class="navbar-brand" href="#"></a> -->
-  <ul class="navbar-nav">
-    <!-- <li class="nav-item">
-      <a class="nav-link" href="#">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">About</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Services</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Contact</a>
-    </li> -->
-  </ul>
-</nav>
-<body>
-  <div>
-    <h1 style="margin-left: 1%; margin-bottom: 1%;">Informe a Empresa</h1>
-      <!-- Botão Input e Calcular. -->
-    <div class="card flex" style="margin-bottom: 3%; margin-left: 1%;">
-      <p-toast></p-toast>
-      <input type="text" pInputText [(ngModel)]="textoVar" style="width: 300px; margin-right: 20px; max-height: 10px;" />
-      <p-splitButton label="Gerar" icon="pi pi-check-circle" (onClick)="addEmpresa()" [model]="items"></p-splitButton>
-    </div>
-    <!-- Final de Input e cálculo -->
+<html>
+  <head>
+    <title>FastLab</title>
+  </head>
+  <nav class="navbar">
+    <!-- <a class="navbar-brand" href="#"></a> -->
+    <ul class="navbar-nav">
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li> -->
+    </ul>
+  </nav>
+  <body>
+    <div>
+      <h1 style="margin-left: 1%; margin-bottom: 1%;">Informe a Empresa</h1>
+        <!-- Botão Input e Calcular. -->
+      <div class="card flex" style="margin-bottom: 3%; margin-left: 1%;">
+        <p-toast></p-toast>
+        <input type="text" pInputText [(ngModel)]="textoVar" style="width: 300px; margin-right: 20px; max-height: 10px;" />
+        <p-splitButton label="Gerar" icon="pi pi-check-circle" (onClick)="addEmpresa()" [model]="items"></p-splitButton>
+      </div>
+      <!-- Final de Input e cálculo -->
 
-    <div class="card">
-      <p-table [value]="myData" [columns]="myColuns" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
-          <tr class="dark-header">
-            <th *ngFor="let item of myColuns">{{item.header}}</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData >
-            <tr>
-              <td *ngFor="let item of myColuns">
-                <div *ngIf="item.field === 'empresa' || item.field === 'loginPortal'">
-                  <span style="margin-right: 10%; padding-right: 1%;">{{rowData[item.field]}}</span>
-                  <p-button *ngIf="item.field === 'loginPortal'" icon="pi pi-copy"
-                  styleClass="p-button-text p-button-raised p-button-rounded"
-                  (click)="btnCopy(rowData[item.field])">
-                  </p-button>
-                </div>
-                <div *ngIf="item.field === 'senha' || item.field === 'senhaPortal' || item.field === 'senhaTeste'">
-                  <span style="margin-right: 2%; padding-right: 1%;">{{rowData[item.field]}}</span>
-                  <p-button icon="pi pi-copy"
-                    styleClass="p-button-text p-button-raised p-button-rounded"
-                    (click)="btnCopy(rowData[item.field])">
-                  </p-button>
-                </div>
-                  <div *ngIf="item.field === 'linkMyLIMS' || item.field === 'linkPortal'">
-                    <a target="_blank" href="https://{{ rowData[item.field] }}">{{rowData[item.field]}}</a>
-                  </div>
-                </td>
+      <div class="card">
+        <p-table [value]="myData" [columns]="myColuns" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+            <tr class="dark-header">
+              <th *ngFor="let item of myColuns" >
+                <div *ngIf="item.header !== 'trashIcon'">{{item.header}}</div>
+              </th>
             </tr>
           </ng-template>
-      </p-table>
+          <!-- <th>
+                 <div><p-button icon="pi pi-times" style="max-width: 3px;" styleClass=""></p-button></div>
+              </th> -->
+          <ng-template pTemplate="body" let-rowData let-i="rowIndex" >
+              <tr class="dark-body">
+                  <td *ngFor="let item of myColuns">
+                    <div *ngIf="item.field === 'empresa'">
+                      <span style="margin-right: 10%; padding-right: 1%;">{{rowData[item.field]}}</span>
+                    </div>
+                    <div *ngIf="item.field === 'senha' || item.field === 'senhaPortal'
+                     || item.field === 'senhaTeste' || item.field === 'loginPortal'">
+                      <input *ngIf="item.field === 'senhaTeste'" pInputText
+                        [(ngModel)]="rowData[item.field]" style="font-size: small;
+                        text-align: left; max-width: 54%; max-height: 10%;"/>
+                      <input *ngIf="item.field === 'senha'"
+                        pInputText [(ngModel)]="rowData[item.field]" style="font-size: x-small;
+                        text-align: left; max-width: 60%; max-height: 10%;
+                        margin-left: -8px; "/>
+                      <input *ngIf="item.field === 'senhaPortal'"
+                        pInputText [(ngModel)]="rowData[item.field]" style="font-size: x-small;
+                        text-align: left; max-width: 64%; max-height: 10%;"/>
+                      <input *ngIf="item.field === 'loginPortal'"
+                        pInputText [(ngModel)]="rowData[item.field]" style="font-size: small;
+                        text-align: left; max-width: 58%; max-height: 10%;"/>
+                      <p-button icon="pi pi-copy" styleClass="p-button-text"
+                        (click)="btnCopy(rowData[item.field])">
+                      </p-button>
+                    </div>
+                    <div *ngIf="item.field === 'linkMyLIMS' || item.field === 'linkPortal'">
+                      <a target="_blank" href="https://{{ rowData[item.field] }}">{{rowData[item.field]}}</a>
+                    </div>
+                  </td>
+                  <!-- <td>
+                    <p-button icon="pi pi-times" styleClass="p-button-danger p-button-text" (Click)="deleteRow(rowData)"></p-button>
+                  </td> -->
+              </tr>
+            </ng-template>
+        </p-table>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
+</html>
 <footer>
   <div class="logo">Suporte myLIMS // Labsoft</div>
   <!-- <div class="social-icons">
@@ -72,4 +90,5 @@
   </div> -->
   <div class="copy">&copy; 2023 FastLab. Todos os direitos reservados.</div>
 </footer>
+
 

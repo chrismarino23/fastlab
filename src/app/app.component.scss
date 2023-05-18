@@ -1,3 +1,11 @@
+// * {
+//   background-color: #666666;
+// }
+
+// input {
+//   background-color: #ffffff;
+// }
+
 .navbar {
   background-color: #333;
   padding: 10px;
@@ -34,10 +42,25 @@
   // }
 }
 
-// .dark-header th {
-//   background-color: #333333;
+// Adicionando tema dark da página
+// body {
+//   background-color: #666666;
+// }
+
+// body h1{
 //   color: #ffffff;
 // }
+
+// .dark-header th {
+//   background-color: #555555;
+//   color: #ffffff;
+// }
+
+// .dark-body td {
+//   background-color: #777777;
+//   color: #ffffff;
+// }
+// Fim das declarações do tema dark
 
 .titulo {
   height: 15px;

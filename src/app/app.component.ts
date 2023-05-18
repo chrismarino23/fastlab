@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService, PrimeIcons } from 'primeng/api';
 import { __values } from 'tslib';
 import { PortalModel } from './interfaces/PortalModel';
 import { PortalService } from './Services/portal.service';
@@ -64,18 +64,19 @@ export class AppComponent implements OnInit{
 
   newGridLine(textoVar: string) {
     return {
-      empresa: textoVar.toString().substring(0,1).toUpperCase().trim()
-       + textoVar.toString().trim().substring(1,100),
-      linkMyLIMS: textoVar + '.mylimsweb.cloud',
-      senha: 'M3t@Lbs' + this.textoVar.substring(0,1).toUpperCase().replaceAll(' ','')
-       + this.textoVar.substring(1,3),
-      loginPortal: textoVar.toString().substring(0,1).toUpperCase().trim()
-       + textoVar.toString().trim().substring(1,100),
-      senhaPortal: 'M3t@Lbs' + this.textoVar.substring(0,1).toUpperCase()
-       + this.textoVar.substring(1,3)
-        + "P",
-      linkPortal: 'portal.mylimsweb.cloud',
-      senhaTeste: 'Qu@dr@d0'
+      empresa: this.textoVar.replaceAll(' ', '').toString().substring(0,1).toUpperCase()
+       + this.textoVar.toString().trim().substring(1,100).replaceAll(' ', ''),
+      linkMyLIMS: textoVar.replaceAll(' ', '') + '.mylimsweb.cloud'.replaceAll(' ', ''),
+      senha: 'M3t@Lbs' + this.textoVar.replaceAll(' ','').substring(0,1).toUpperCase()
+       + this.textoVar.replaceAll(' ', '').substring(1,3),
+      loginPortal: this.textoVar.replaceAll(' ', '').toString().substring(0,1).toUpperCase().trim()
+       + this.textoVar.replaceAll(' ', '').toString().trim().substring(1,100),
+      senhaPortal: 'M3t@Lbs' + this.textoVar.replaceAll(' ', '').substring(0,1).toUpperCase()
+       + this.textoVar.replaceAll(' ', '').substring(1,3)
+        + "P".replaceAll(' ', ''),
+      linkPortal: 'portal.mylimsweb.cloud'.replaceAll(' ', ''),
+      senhaTeste: 'Qu@dr@d0'.replaceAll(' ', ''),
+      trashIcon: '    '
     }
   }
 
@@ -91,11 +92,17 @@ export class AppComponent implements OnInit{
     }
   }
 
+  deleteRow(index: number) {
+    this.delete('info');
+    this.myData.splice(index, 1);
+  }
+
   btnCopy(text: string){
     this._clipboardService.copy(text)
     this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Copiado!' });
   }
 
+  //Functions para as mensagens de notificação
   save(severity: string) {
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Gerado!' });
   }
@@ -111,4 +118,5 @@ export class AppComponent implements OnInit{
   showError() {
         this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Formato Incorreto!' });
   }
+  //fim das mensagens de notificação
 }
